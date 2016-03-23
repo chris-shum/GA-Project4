@@ -12,10 +12,15 @@
     tools:context="com.firebase.androidchat.LoginActivity">
 
     <EditText
-        android:id="@+id/userNameEditText"
+        android:id="@+id/loginActivityUserNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter name" />
+        android:hint="@string/login_activity_hint" />
+
+    <Spinner
+        android:id="@+id/nativeLanguageSelectSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/languageSelectSpinner"

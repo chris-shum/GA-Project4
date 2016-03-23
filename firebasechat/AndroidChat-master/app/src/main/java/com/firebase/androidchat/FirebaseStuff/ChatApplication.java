@@ -1,4 +1,4 @@
-package com.firebase.androidchat;
+package com.firebase.androidchat.FirebaseStuff;
 
 import com.firebase.client.Firebase;
 

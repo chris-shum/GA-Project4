@@ -1,10 +1,11 @@
-package com.firebase.androidchat;
+package com.firebase.androidchat.FirebaseStuff;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
+import com.firebase.androidchat.R;
 import com.firebase.client.Query;
 
 /**
