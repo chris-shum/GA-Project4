@@ -8,6 +8,7 @@
     <string-array name="languages_array">
         <item>English</item>
         <item>Spanish</item>
+        <item>French</item>
     </string-array>
 
 

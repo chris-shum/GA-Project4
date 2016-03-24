@@ -4,9 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -59,16 +57,16 @@ public class MainActivity extends ListActivity {
         }
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
-        EditText inputText = (EditText) findViewById(R.id.messageInput);
-        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    sendMessage();
-                }
-                return true;
-            }
-        });
+        final EditText inputText = (EditText) findViewById(R.id.messageInput);
+//        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+//                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+//                    sendMessage();
+//                }
+//                return true;
+//            }
+//        });
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +74,18 @@ public class MainActivity extends ListActivity {
             }
         });
 
+        findViewById(R.id.sendButton).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Translator translator = new Translator();
+                try {
+                    translator.translatedText(inputText.getText().toString(), mLanguage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -99,7 +109,7 @@ public class MainActivity extends ListActivity {
                 TextView clickedText = (TextView) view.findViewById(R.id.message);
                 Translator translator = new Translator();
                 try {
-                    translator.main(clickedText.getText().toString(), mNativeLanguage);
+                    translator.translatedText(clickedText.getText().toString(), mNativeLanguage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -149,7 +159,7 @@ public class MainActivity extends ListActivity {
         String input = inputText.getText().toString();
         if (!input.equals("")) {
             // Create our 'model', a Chat object
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            String timeStamp = new SimpleDateFormat("MM.dd.HH.mm").format(new Date());
             Chat chat = new Chat(input, mUsername, timeStamp);
             // Create a new, auto-generated child of that chat location, and save our chat data there
             mFirebaseRef.push().setValue(chat);
