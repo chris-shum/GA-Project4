@@ -3,8 +3,12 @@ package com.firebase.androidchat;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,10 +21,11 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.memetix.mst.language.Language;
+import com.memetix.mst.translate.Translate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class MainActivity extends ListActivity {
 
@@ -33,6 +38,10 @@ public class MainActivity extends ListActivity {
     private ChatListAdapter mChatListAdapter;
     String mNativeLanguage;
     String mLanguage;
+    EditText mInputText;
+    public static Language translateToLanguage = Language.ENGLISH;
+    boolean myText = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,7 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.activity_main);
 
         // Make sure we have a mUsername
-        setupUsername();
+//        setupUsername();
 
         Intent intent = getIntent();
         mUsername = intent.getStringExtra("Name");
@@ -58,15 +67,15 @@ public class MainActivity extends ListActivity {
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
         final EditText inputText = (EditText) findViewById(R.id.messageInput);
-//        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-//                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-//                    sendMessage();
-//                }
-//                return true;
-//            }
-//        });
+        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    sendMessage();
+                }
+                return true;
+            }
+        });
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,9 +86,9 @@ public class MainActivity extends ListActivity {
         findViewById(R.id.sendButton).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Translator translator = new Translator();
                 try {
-                    translator.translatedText(inputText.getText().toString(), mLanguage);
+                    myText = true;
+                    translatedText(inputText.getText().toString(), mLanguage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -107,9 +116,9 @@ public class MainActivity extends ListActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView clickedText = (TextView) view.findViewById(R.id.message);
-                Translator translator = new Translator();
                 try {
-                    translator.translatedText(clickedText.getText().toString(), mNativeLanguage);
+                    myText = false;
+                    translatedText(clickedText.getText().toString(), mNativeLanguage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -143,27 +152,82 @@ public class MainActivity extends ListActivity {
         mChatListAdapter.cleanup();
     }
 
-    private void setupUsername() {
-//        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-//        mUsername = prefs.getString("username", null);
-        if (mUsername == null) {
-            Random r = new Random();
-            // Assign a random user name if we don't have one saved.
-            mUsername = "JavaUser" + r.nextInt(100000);
-//            prefs.edit().putString("username", mUsername).commit();
-        }
-    }
+//    private void setupUsername() {
+////        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
+////        mUsername = prefs.getString("username", null);
+//        if (mUsername == null) {
+//            Random r = new Random();
+//            // Assign a random user name if we don't have one saved.
+//            mUsername = "JavaUser" + r.nextInt(100000);
+////            prefs.edit().putString("username", mUsername).commit();
+//        }
+//    }
 
     private void sendMessage() {
-        EditText inputText = (EditText) findViewById(R.id.messageInput);
-        String input = inputText.getText().toString();
+        mInputText = (EditText) findViewById(R.id.messageInput);
+        String input = mInputText.getText().toString();
         if (!input.equals("")) {
             // Create our 'model', a Chat object
             String timeStamp = new SimpleDateFormat("MM.dd.HH.mm").format(new Date());
             Chat chat = new Chat(input, mUsername, timeStamp);
             // Create a new, auto-generated child of that chat location, and save our chat data there
             mFirebaseRef.push().setValue(chat);
-            inputText.setText("");
+            mInputText.setText("");
+        }
+    }
+
+    //translation portion below
+    public void translatedText(String clickedText, String translatedToLanguage) throws Exception {
+        //Replace client_id and client_secret with your own.
+        Translate.setClientId("Project4Shum");
+        Translate.setClientSecret("AXhYWTlsSQuWjQ21EnuuzmR64ymaAONk/Oe1wnfU0AI=");
+        String clickedString = clickedText;
+        BackgroundTranslation backgroundTranslation = new BackgroundTranslation();
+        setTranslateToLanguage(translatedToLanguage);
+        backgroundTranslation.execute(clickedString);
+    }
+
+    public static void setTranslateToLanguage(String language) {
+        switch (language) {
+            case "English":
+                translateToLanguage = Language.ENGLISH;
+                break;
+            case "Spanish":
+                translateToLanguage = Language.SPANISH;
+                break;
+            case "French":
+                translateToLanguage = Language.FRENCH;
+                break;
+            default:
+                translateToLanguage = Language.ENGLISH;
+        }
+    }
+
+    class BackgroundTranslation extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... inputString) {
+            String translatedString = null;
+            try {
+                translatedString = Translate.execute(inputString[0], translateToLanguage);
+                Log.d("Translate", "It worked");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("Translate", "It didn't work");
+            }
+            Log.d("Translate", "Original: " + inputString[0]);
+            return translatedString;
+        }
+
+        @Override
+        protected void onPostExecute(String translatedString) {
+            Log.d("Translate", "Translated: " + translatedString);
+            if (myText) {
+                EditText inputText = (EditText) findViewById(R.id.messageInput);
+                inputText.setText(translatedString);
+            } else {
+                Toast.makeText(MainActivity.this, translatedString, Toast.LENGTH_SHORT).show();
+            }
+            super.onPostExecute(translatedString);
         }
     }
 }
