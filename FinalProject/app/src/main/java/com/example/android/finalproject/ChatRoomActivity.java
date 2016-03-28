@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -40,6 +41,7 @@ public class ChatRoomActivity extends ListActivity {
     EditText mInputText;
     public static Language translateToLanguage = Language.ENGLISH;
     boolean myText = true;
+    Toolbar chatRoomToolbar;
 
 
     @Override
@@ -54,7 +56,8 @@ public class ChatRoomActivity extends ListActivity {
         mNativeLanguage = intent.getStringExtra("NativeLanguage");
         mLanguage = intent.getStringExtra("Language");
 
-        setTitle("Chatting as " + mUsername + " in the " + mLanguage + " room.");
+        chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
+        chatRoomToolbar.setTitle("Chatting as " + mUsername + " in the " + mLanguage + " room");
 
         // Setup our Firebase mFirebaseRef
         if (mLanguage == null) {
