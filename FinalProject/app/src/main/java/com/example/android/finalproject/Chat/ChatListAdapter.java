@@ -2,6 +2,7 @@ package com.example.android.finalproject.Chat;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,13 +39,17 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
         // Map a Chat object to an entry in our listview
         String author = chat.getAuthor();
         TextView authorText = (TextView) view.findViewById(R.id.author);
-        authorText.setText(chat.getTime()+" "+author + ": ");
+        authorText.setText(chat.getTime()+" "+author);
+        TextView messageText = (TextView) view.findViewById(R.id.message);
+        messageText.setText(chat.getMessage());
+
         // If the message was sent by this user, color it differently
         if (author != null && author.equals(mUsername)) {
             authorText.setTextColor(Color.RED);
+            authorText.setGravity(Gravity.RIGHT);
+            messageText.setGravity(Gravity.RIGHT);
         } else {
             authorText.setTextColor(Color.BLUE);
         }
-        ((TextView) view.findViewById(R.id.message)).setText(chat.getMessage());
     }
 }

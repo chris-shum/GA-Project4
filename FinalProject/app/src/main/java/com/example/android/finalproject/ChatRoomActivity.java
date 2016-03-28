@@ -113,9 +113,11 @@ public class ChatRoomActivity extends ListActivity {
                 listView.setSelection(mChatListAdapter.getCount() - 1);
             }
         });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView clickedText = (TextView) view.findViewById(R.id.message);
                 try {
                     myText = false;
@@ -123,7 +125,6 @@ public class ChatRoomActivity extends ListActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return false;
             }
         });
 
@@ -153,16 +154,6 @@ public class ChatRoomActivity extends ListActivity {
         mChatListAdapter.cleanup();
     }
 
-//    private void setupUsername() {
-////        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-////        mUsername = prefs.getString("username", null);
-//        if (mUsername == null) {
-//            Random r = new Random();
-//            // Assign a random user name if we don't have one saved.
-//            mUsername = "JavaUser" + r.nextInt(100000);
-////            prefs.edit().putString("username", mUsername).commit();
-//        }
-//    }
 
     private void sendMessage() {
         mInputText = (EditText) findViewById(R.id.messageInput);
