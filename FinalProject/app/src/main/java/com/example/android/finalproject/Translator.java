@@ -1,7 +1,6 @@
 package com.example.android.finalproject;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +12,7 @@ import com.memetix.mst.translate.Translate;
  * Created by ShowMe on 3/29/16.
  */
 public class Translator {
-    private static Translator ourInstance = new Translator();
+    private static Translator ourInstance = null;
 
     public static Language translateToLanguage = Language.ENGLISH;
     private String mUsername;
@@ -45,10 +44,13 @@ public class Translator {
     }
 
     public static Translator getInstance() {
+        if (ourInstance == null){
+            ourInstance = new Translator();
+        }
         return ourInstance;
     }
 
-    private Translator() {
+    public Translator() {
     }
 
     public void translatedText(final TextView inputView, String translatedToLanguage) throws Exception {
@@ -62,7 +64,6 @@ public class Translator {
                 super.onPostExecute(translatedString);
                 if (inputView instanceof EditText) {
                     inputView.setText(translatedString);
-                    Log.d("Translate", "Translated: " +translatedString);
                 } else {
                     Toast.makeText(inputView.getContext(), translatedString, Toast.LENGTH_SHORT).show();
                 }
@@ -94,12 +95,9 @@ public class Translator {
             String translatedString = null;
             try {
                 translatedString = Translate.execute(inputString[0], translateToLanguage);
-                Log.d("Translate", "It worked");
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("Translate", "It didn't work");
             }
-            Log.d("Translate", "Original: " + inputString[0]);
             return translatedString;
         }
     }

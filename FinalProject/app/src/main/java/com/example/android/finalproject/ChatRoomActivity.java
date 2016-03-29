@@ -1,12 +1,18 @@
 package com.example.android.finalproject;
 
-import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -21,9 +27,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
-import com.memetix.mst.language.Language;
 
-public class ChatRoomActivity extends ListActivity {
+public class ChatRoomActivity extends AppCompatActivity {
 
     private static final String FIREBASE_URL = "https://blazing-inferno-2663.firebaseio.com/";
     private Firebase mFirebaseRef;
@@ -32,7 +37,6 @@ public class ChatRoomActivity extends ListActivity {
     public String mNativeLanguage;
     String mLanguage;
     EditText mInputText;
-    public static Language translateToLanguage = Language.ENGLISH;
     Toolbar chatRoomToolbar;
 
     private RecyclerView mMessages;
@@ -48,6 +52,7 @@ public class ChatRoomActivity extends ListActivity {
         mFirebaseRef.setAndroidContext(this);
         mInputText = (EditText) findViewById(R.id.messageInput);
 
+
         Intent intent = getIntent();
         mUsername = intent.getStringExtra("Name");
         mNativeLanguage = intent.getStringExtra("NativeLanguage");
@@ -59,6 +64,8 @@ public class ChatRoomActivity extends ListActivity {
 
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
         chatRoomToolbar.setTitle("Chatting as " + mUsername + " in the " + mLanguage + " room");
+        setSupportActionBar(chatRoomToolbar);
+
 
         // Setup our Firebase mFirebaseRef
         if (mLanguage == null) {
@@ -91,7 +98,9 @@ public class ChatRoomActivity extends ListActivity {
             @Override
             public boolean onLongClick(View view) {
                 try {
-                    translator.translatedText(mInputText ,mLanguage);
+                    Log.d("bah", translator.getLanguage());
+
+                    translator.translatedText(mInputText, translator.getLanguage());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -170,6 +179,46 @@ public class ChatRoomActivity extends ListActivity {
                     mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount());
                 }
             });
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        switch (item.getItemId()) {
+            case R.id.translate:
+                builder.setTitle("Select language to translate to");
+                builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        String[] mTestArray = getResources().getStringArray(R.array.languages_array);
+                        Translator translator = Translator.getInstance();
+                        translator.setLanguage(mTestArray[item]);
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                return true;
+            case R.id.nativeLanguage:
+                builder.setTitle("Select native language");
+                builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        String[] mTestArray = getResources().getStringArray(R.array.languages_array);
+                        Translator translator = Translator.getInstance();
+                        translator.setNativeLanguage(mTestArray[item]);
+                    }
+                });
+                AlertDialog alert2 = builder.create();
+                alert2.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
