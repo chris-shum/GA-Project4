@@ -1,4 +1,4 @@
-package com.example.android.finalproject.Chat;
+package com.example.android.finalproject.RecyclerViewTest;
 
 /**
  * @author greg
@@ -15,7 +15,7 @@ public class Chat {
     private Chat() {
     }
 
-    public Chat(String message, String author, String time) {
+    public Chat(String message, String author) {
         this.message = message;
         this.author = author;
         this.time = time;
