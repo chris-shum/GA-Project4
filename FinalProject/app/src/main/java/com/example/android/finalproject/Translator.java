@@ -19,16 +19,6 @@ public class Translator {
     private String mUsername;
     public String mNativeLanguage;
     String mLanguage;
-    public static boolean myText = true;
-
-
-    public static Language getTranslateToLanguage() {
-        return translateToLanguage;
-    }
-
-    public static void setTranslateToLanguage(Language translateToLanguage) {
-        Translator.translateToLanguage = translateToLanguage;
-    }
 
     public String getUsername() {
         return mUsername;
@@ -61,11 +51,11 @@ public class Translator {
     private Translator() {
     }
 
-    public void translatedText(String inputText, final TextView inputView, String translatedToLanguage) throws Exception {
+    public void translatedText(final TextView inputView, String translatedToLanguage) throws Exception {
         //Replace client_id and client_secret with your own.
         Translate.setClientId("Project4Shum");
         Translate.setClientSecret("AXhYWTlsSQuWjQ21EnuuzmR64ymaAONk/Oe1wnfU0AI=");
-        String clickedString = inputText;
+        String clickedString = inputView.getText().toString();
         BackgroundTranslation backgroundTranslation = new BackgroundTranslation() {
             @Override
             protected void onPostExecute(String translatedString) {

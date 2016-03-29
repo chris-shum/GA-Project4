@@ -16,10 +16,12 @@ import com.example.android.finalproject.Translator;
 public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     View mView;
+    RelativeLayout relativeLayout;
 
     public ChatHolder(View itemView) {
         super(itemView);
         mView = itemView;
+        relativeLayout = (RelativeLayout) itemView.findViewById(R.id.message_container);
     }
 
     public void setIsSender(Boolean isSender) {
@@ -46,13 +48,14 @@ public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickL
     public void setText(String text) {
         TextView field = (TextView) mView.findViewById(R.id.message_text);
         field.setText(text);
-        field.setOnClickListener(new View.OnClickListener() {
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView clickedText = (TextView) mView.findViewById(R.id.message_text);
                 try {
                     Translator translator = Translator.getInstance();
-                    translator.translatedText(clickedText.getText().toString(), clickedText, translator.getNativeLanguage());
+                    translator.translatedText(clickedText, translator.getNativeLanguage());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

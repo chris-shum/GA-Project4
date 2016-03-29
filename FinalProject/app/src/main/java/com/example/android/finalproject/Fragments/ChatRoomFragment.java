@@ -55,7 +55,11 @@ public class ChatRoomFragment extends Fragment {
                 intent.putExtra("Name", name);
                 intent.putExtra("NativeLanguage", nativeLanguage);
                 intent.putExtra("Language", language);
-                getActivity().startActivity(intent);
+                if (name == "") {
+                    mUserName.setError("Please enter a username");
+                } else {
+                    getActivity().startActivity(intent);
+                }
             }
         });
         return view;

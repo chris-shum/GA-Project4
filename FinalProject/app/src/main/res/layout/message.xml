@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:id="@+id/message_container"
     android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingBottom="5dp"
+    >
 
     <FrameLayout
         android:id="@+id/left_arrow"
