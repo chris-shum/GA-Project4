@@ -1,0 +1,175 @@
+{
+  "project_info": {
+    "project_id": "idyllic-bloom-125816",
+    "project_number": "470724059702",
+    "name": "Project 4"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470724059702:android:6ce1148132ab63b1",
+        "client_id": "android:com.example.android.project4",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.android.project4",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470724059702-7u88bhg9g3r8iq1um1jrc6c6m71m4rbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.project4",
+            "certificate_hash": "D7E829889333D2E36B85D4EA3C863D3060EED3A5"
+          }
+        },
+        {
+          "client_id": "470724059702-l6ujuc806cnlpjogk7s961rm0e1qdtl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470724059702:android:22d76935dc8bf743",
+        "client_id": "android:com.firebase.androidchat",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.firebase.androidchat",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470724059702-l6ujuc806cnlpjogk7s961rm0e1qdtl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470724059702:android:a7f059faa9bb460d",
+        "client_id": "android:net.simplifiedcoding.googlelogin",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "net.simplifiedcoding.googlelogin",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470724059702-mj4s7i6va1lnpa545eh6sv6gq1nql1bi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.simplifiedcoding.googlelogin",
+            "certificate_hash": "D7E829889333D2E36B85D4EA3C863D3060EED3A5"
+          }
+        },
+        {
+          "client_id": "470724059702-l6ujuc806cnlpjogk7s961rm0e1qdtl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470724059702:android:69663f6ce34fe6c8",
+        "client_id": "android:com.example.android.finalproject",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.android.finalproject",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470724059702-l6ujuc806cnlpjogk7s961rm0e1qdtl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

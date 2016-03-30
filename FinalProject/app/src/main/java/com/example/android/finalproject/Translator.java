@@ -44,7 +44,7 @@ public class Translator {
     }
 
     public static Translator getInstance() {
-        if (ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new Translator();
         }
         return ourInstance;

@@ -14,24 +14,23 @@
         android:layout_height="wrap_content"
         android:text="Messages" />
 
-    <EditText
-        android:id="@+id/messagesUserNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="username"/>
+    <!--<EditText-->
+    <!--android:id="@+id/messagesUserNameEditText"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="username"/>-->
 
     <EditText
         android:id="@+id/messagesRoomNameEditText"
         android:layout_width="match_parent"
-        android:hint="roomname"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="roomname" />
 
     <Button
+        android:id="@+id/messagesSubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/messagesSubmitButton"
-        />
+        android:text="Submit" />
 
     <ListView
         android:id="@+id/messagesListView"

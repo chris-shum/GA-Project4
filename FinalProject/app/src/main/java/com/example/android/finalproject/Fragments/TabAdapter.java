@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.android.finalproject.Fragments.ChatRoomFragment;
-import com.example.android.finalproject.Fragments.MessagesFragment;
-
 /**
  * Created by ShowMe on 3/28/16.
  */
@@ -18,6 +15,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.mTabNumber = tabNumber;
     }
+
     @Override
     public Fragment getItem(int position) {
 
@@ -32,6 +30,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
+
     @Override
     public int getCount() {
         return mTabNumber;

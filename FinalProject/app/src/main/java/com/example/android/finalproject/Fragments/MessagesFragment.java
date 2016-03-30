@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.example.android.finalproject.ChatRoomActivity;
 import com.example.android.finalproject.R;
+import com.example.android.finalproject.Translator;
 
 
 /**
@@ -19,10 +20,8 @@ import com.example.android.finalproject.R;
  */
 public class MessagesFragment extends Fragment {
 
-    EditText mUsername;
     EditText mRoomName;
     Button mSubmit;
-
 
     public MessagesFragment() {
         // Required empty public constructor
@@ -34,25 +33,21 @@ public class MessagesFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
-        mUsername = (EditText) view.findViewById(R.id.messagesUserNameEditText);
         mRoomName = (EditText) view.findViewById(R.id.messagesRoomNameEditText);
         mSubmit = (Button) view.findViewById(R.id.messagesSubmitButton);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mUsername.getText().toString();
-                String nativeLanguage = "English";
+                Translator translator = Translator.getInstance();
                 String language = mRoomName.getText().toString();
+                translator.setNativeLanguage("English");
+
                 Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-                intent.putExtra("Name", name);
-                intent.putExtra("NativeLanguage", nativeLanguage);
-                intent.putExtra("Language", language);
-                if (name.equals("")) {
-                    mUsername.setError("Please enter a username");
-                } else if (language.equals("")) {
+                if (language.equals("")) {
                     mRoomName.setError("Please enter a room name");
                 } else {
+                    translator.setLanguage(language);
                     getActivity().startActivity(intent);
                 }
             }

@@ -1,14 +1,12 @@
 package com.example.android.finalproject;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,7 +41,6 @@ public class ChatRoomActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
     private Query mChatRef;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +49,10 @@ public class ChatRoomActivity extends AppCompatActivity {
         mFirebaseRef.setAndroidContext(this);
         mInputText = (EditText) findViewById(R.id.messageInput);
 
-
-        Intent intent = getIntent();
-        mUsername = intent.getStringExtra("Name");
-        mNativeLanguage = intent.getStringExtra("NativeLanguage");
-        mLanguage = intent.getStringExtra("Language");
         final Translator translator = Translator.getInstance();
-        translator.setUsername(mUsername);
-        translator.setNativeLanguage(mNativeLanguage);
-        translator.setLanguage(mLanguage);
+        mUsername = translator.getUsername();
+        mNativeLanguage = translator.getNativeLanguage();
+        mLanguage = translator.getLanguage();
 
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
         chatRoomToolbar.setTitle("Chatting as " + mUsername + " in the " + mLanguage + " room");
@@ -98,8 +90,6 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 try {
-                    Log.d("bah", translator.getLanguage());
-
                     translator.translatedText(mInputText, translator.getLanguage());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -121,7 +111,6 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         mMessages.setHasFixedSize(false);
         mMessages.setLayoutManager(manager);
-
 
         mRecycleViewAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(Chat.class, R.layout.message, ChatHolder.class, mChatRef) {
             @Override
@@ -149,7 +138,6 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Toast.makeText(ChatRoomActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 // No-op
