@@ -1,8 +1,9 @@
-package com.example.android.finalproject.Login;
+package com.showme.android.finalproject.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,9 +11,9 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.example.android.finalproject.MainActivity;
-import com.example.android.finalproject.R;
-import com.example.android.finalproject.Translator;
+import com.showme.android.finalproject.MainActivity;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Translator;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -20,8 +21,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+
+    Toolbar chatRoomToolbar;
+
 
     //Signin button
     private SignInButton signInButton;
@@ -50,6 +56,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        chatRoomToolbar = (Toolbar) findViewById(R.id.loginToolbar);
+        chatRoomToolbar.setTitle("App Name");
+        setSupportActionBar(chatRoomToolbar);
 
         //Initializing Views
         textViewName = (TextView) findViewById(R.id.textViewName);
@@ -133,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             //Loading image
             profilePhoto.setImageUrl(acct.getPhotoUrl().toString(), imageLoader);
-            signInButton.setVisibility(View.INVISIBLE);
+            signInButton.setVisibility(View.GONE);
             mWelcome.setVisibility(View.VISIBLE);
             mLogggedInAs.setVisibility(View.VISIBLE);
             mButton.setVisibility(View.VISIBLE);
@@ -159,5 +169,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
+    }
+
+    public void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // ...
+                    }
+                });
     }
 }

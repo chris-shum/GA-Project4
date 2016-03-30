@@ -1,4 +1,4 @@
-package com.example.android.finalproject.Fragments;
+package com.showme.android.finalproject.Fragments;
 
 
 import android.content.Intent;
@@ -10,20 +10,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.android.finalproject.ChatRoomActivity;
-import com.example.android.finalproject.R;
-import com.example.android.finalproject.Translator;
+import com.showme.android.finalproject.ChatRoomActivity;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Translator;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessagesFragment extends Fragment {
+public class PrivateChatRoomFragment extends Fragment {
 
     EditText mRoomName;
     Button mSubmit;
 
-    public MessagesFragment() {
+    public PrivateChatRoomFragment() {
         // Required empty public constructor
     }
 

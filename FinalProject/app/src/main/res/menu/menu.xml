@@ -12,4 +12,9 @@
         android:icon="@android:drawable/ic_media_next"
         android:title="@string/Native_Language"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/signOut"
+        android:icon="@android:drawable/ic_media_next"
+        android:title="Sign Out"
+        app:showAsAction="never" />
 </menu>

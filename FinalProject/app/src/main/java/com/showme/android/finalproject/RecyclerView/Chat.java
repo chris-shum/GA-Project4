@@ -1,4 +1,4 @@
-package com.example.android.finalproject.RecyclerViewTest;
+package com.showme.android.finalproject.RecyclerView;
 
 /**
  * @author greg

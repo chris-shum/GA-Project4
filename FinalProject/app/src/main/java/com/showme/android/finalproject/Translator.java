@@ -1,9 +1,10 @@
-package com.example.android.finalproject;
+package com.showme.android.finalproject;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.memetix.mst.language.Language;
 import com.memetix.mst.translate.Translate;
@@ -57,7 +58,7 @@ public class Translator {
         //Replace client_id and client_secret with your own.
         Translate.setClientId("Project4Shum");
         Translate.setClientSecret("AXhYWTlsSQuWjQ21EnuuzmR64ymaAONk/Oe1wnfU0AI=");
-        String clickedString = inputView.getText().toString();
+        final String clickedString = inputView.getText().toString();
         BackgroundTranslation backgroundTranslation = new BackgroundTranslation() {
             @Override
             protected void onPostExecute(String translatedString) {
@@ -65,7 +66,10 @@ public class Translator {
                 if (inputView instanceof EditText) {
                     inputView.setText(translatedString);
                 } else {
-                    Toast.makeText(inputView.getContext(), translatedString, Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(inputView.getContext());
+                    builder.setMessage(Html.fromHtml("<b>" + translatedString+"</b><br><br>"+clickedString));
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             }
         };

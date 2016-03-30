@@ -1,4 +1,4 @@
-package com.example.android.finalproject.Fragments;
+package com.showme.android.finalproject.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,10 +21,10 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                MessagesFragment tab1 = new MessagesFragment();
+                PublicChatRoomFragment tab1 = new PublicChatRoomFragment();
                 return tab1;
             case 1:
-                ChatRoomFragment tab2 = new ChatRoomFragment();
+                PrivateChatRoomFragment tab2 = new PrivateChatRoomFragment();
                 return tab2;
             default:
                 return null;

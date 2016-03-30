@@ -1,4 +1,4 @@
-package com.example.android.finalproject;
+package com.showme.android.finalproject;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.example.android.finalproject.Fragments.TabAdapter;
+import com.showme.android.finalproject.Fragments.TabAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutBar);
-        tabLayout.addTab(tabLayout.newTab().setText("Messages"));
-        tabLayout.addTab(tabLayout.newTab().setText("Chat Rooms"));
+        tabLayout.addTab(tabLayout.newTab().setText("Public Chat"));
+        tabLayout.addTab(tabLayout.newTab().setText("Private Chat"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

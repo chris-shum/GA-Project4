@@ -1,4 +1,4 @@
-package com.example.android.finalproject.RecyclerViewTest;
+package com.showme.android.finalproject.RecyclerView;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -7,8 +7,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.android.finalproject.R;
-import com.example.android.finalproject.Translator;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Translator;
 
 /**
  * Created by ShowMe on 3/28/16.

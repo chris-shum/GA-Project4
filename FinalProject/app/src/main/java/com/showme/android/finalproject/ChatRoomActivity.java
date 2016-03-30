@@ -1,6 +1,7 @@
-package com.example.android.finalproject;
+package com.showme.android.finalproject;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.finalproject.RecyclerViewTest.Chat;
-import com.example.android.finalproject.RecyclerViewTest.ChatHolder;
+import com.showme.android.finalproject.Login.LoginActivity;
+import com.showme.android.finalproject.RecyclerView.Chat;
+import com.showme.android.finalproject.RecyclerView.ChatHolder;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -41,6 +43,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
     private Query mChatRef;
 
+    LoginActivity loginActivity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +60,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         mLanguage = translator.getLanguage();
 
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
-        chatRoomToolbar.setTitle("Chatting as " + mUsername + " in the " + mLanguage + " room");
+        chatRoomToolbar.setTitle(mLanguage + " room");
         setSupportActionBar(chatRoomToolbar);
 
 
@@ -138,6 +143,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     Toast.makeText(ChatRoomActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 // No-op
@@ -204,6 +210,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 });
                 AlertDialog alert2 = builder.create();
                 alert2.show();
+                return true;
+            case R.id.signOut:
+                loginActivity = new LoginActivity();
+                loginActivity.signOut();
+                Intent intent = new Intent(ChatRoomActivity.this, LoginActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

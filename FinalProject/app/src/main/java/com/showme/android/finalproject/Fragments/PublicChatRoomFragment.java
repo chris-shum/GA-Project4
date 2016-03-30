@@ -1,4 +1,4 @@
-package com.example.android.finalproject.Fragments;
+package com.showme.android.finalproject.Fragments;
 
 
 import android.content.Intent;
@@ -11,22 +11,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.android.finalproject.ChatRoomActivity;
-import com.example.android.finalproject.R;
-import com.example.android.finalproject.Translator;
+import com.showme.android.finalproject.ChatRoomActivity;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Translator;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatRoomFragment extends Fragment {
+public class PublicChatRoomFragment extends Fragment {
 
     Spinner mNativeLanguageSelect;
     Spinner mLanguageSelect;
     ArrayAdapter<CharSequence> mAdapter;
     Button mSubmit;
 
-    public ChatRoomFragment() {
+    public PublicChatRoomFragment() {
         // Required empty public constructor
     }
 
