@@ -2,18 +2,15 @@ package com.showme.android.finalproject.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.showme.android.finalproject.MainActivity;
-import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.Translator;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -21,17 +18,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
+import com.showme.android.finalproject.Google;
+import com.showme.android.finalproject.MainActivity;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Translator;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     Toolbar chatRoomToolbar;
 
+    boolean logout;
+
 
     //Signin button
     private SignInButton signInButton;
-    Button mButton;
+    FloatingActionButton mButton;
 
     //Signing Options
     private GoogleSignInOptions gso;
@@ -57,6 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Google google = Google.getInstance();
+
+
         chatRoomToolbar = (Toolbar) findViewById(R.id.loginToolbar);
         chatRoomToolbar.setTitle("App Name");
         setSupportActionBar(chatRoomToolbar);
@@ -65,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textViewName = (TextView) findViewById(R.id.textViewName);
         textViewEmail = (TextView) findViewById(R.id.textViewEmail);
         profilePhoto = (NetworkImageView) findViewById(R.id.profileImage);
-        mButton = (Button) findViewById(R.id.loginButton);
+        mButton = (FloatingActionButton) findViewById(R.id.loginButton);
         mWelcome = (TextView) findViewById(R.id.welcome);
         mLogggedInAs = (TextView) findViewById(R.id.loggingInAs);
 
@@ -85,6 +89,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        google.setmGoogleApiClient(mGoogleApiClient);
+
+        Intent intent = getIntent();
+        logout = intent.getBooleanExtra("Logout", false);
+        if (logout) {
+            signOut();
+        }
 
         //Setting onclick listener to signing button
         signInButton.setOnClickListener(this);
@@ -103,7 +114,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //This function will option signing intent
     private void signIn() {
         //Creating an intent
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Google google = Google.getInstance();
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(google.getmGoogleApiClient());
 
         //Starting intent for result
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -172,12 +184,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void signOut() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        // ...
-                    }
-                });
+        try {
+            // clearing app data
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("pm clear com.showme.android.finalproject");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -43,9 +43,6 @@ public class ChatRoomActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
     private Query mChatRef;
 
-    LoginActivity loginActivity;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +72,17 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
         final EditText inputText = (EditText) findViewById(R.id.messageInput);
-        inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    sendMessage();
+        if (inputText != null) {
+            inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                        sendMessage();
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
+        }
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,7 +187,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()) {
             case R.id.translate:
-                builder.setTitle("Select language to translate to");
+                builder.setTitle("I want to speak:");
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
@@ -200,7 +199,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 alert.show();
                 return true;
             case R.id.nativeLanguage:
-                builder.setTitle("Select native language");
+                builder.setTitle("I speak:");
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
@@ -212,9 +211,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 alert2.show();
                 return true;
             case R.id.signOut:
-                loginActivity = new LoginActivity();
-                loginActivity.signOut();
                 Intent intent = new Intent(ChatRoomActivity.this, LoginActivity.class);
+                intent.putExtra("Logout", true);
                 startActivity(intent);
                 return true;
             default:

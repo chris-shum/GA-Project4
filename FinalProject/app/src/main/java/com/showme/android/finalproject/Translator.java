@@ -88,6 +88,36 @@ public class Translator {
             case "French":
                 translateToLanguage = Language.FRENCH;
                 break;
+            case "Chinese":
+                translateToLanguage = Language.CHINESE_SIMPLIFIED;
+                break;
+            case "German":
+                translateToLanguage = Language.GERMAN;
+                break;
+            case "Italian":
+                translateToLanguage = Language.ITALIAN;
+                break;
+            case "Japanese":
+                translateToLanguage = Language.JAPANESE;
+                break;
+            case "Korean":
+                translateToLanguage = Language.KOREAN;
+                break;
+            case "Portuguese":
+                translateToLanguage = Language.PORTUGUESE;
+                break;
+            case "Russian":
+                translateToLanguage = Language.RUSSIAN;
+                break;
+            case "Polish":
+                translateToLanguage = Language.POLISH;
+                break;
+            case "Hebrew":
+                translateToLanguage = Language.HEBREW;
+                break;
+            case "Swedish":
+                translateToLanguage = Language.SWEDISH;
+                break;
             default:
                 translateToLanguage = Language.ENGLISH;
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,38 +11,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.firebase.androidchat.LoginActivity">
 
-    <!--<EditText-->
-    <!--android:id="@+id/loginActivityUserNameEditText"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:hint="Login" />-->
-
     <TextView
+        android:id="@+id/selectNativeLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Native Language" />
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:text="I speak:"
+        android:textSize="@dimen/text_size" />
 
     <Spinner
         android:id="@+id/nativeLanguageSelectSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectNativeLanguage"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:textSize="@dimen/text_size" />
 
     <TextView
+        android:id="@+id/roomLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Language Chatroom" />
+        android:layout_below="@id/nativeLanguageSelectSpinner"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:text="I want to speak:"
+        android:textSize="@dimen/text_size" />
 
 
     <Spinner
         android:id="@+id/languageSelectSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roomLanguage"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:textSize="@dimen/text_size" />
 
-    <Button
+
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/ic_menu_send"
+        android:text="Continue"
+        android:elevation="4dp"
+        android:textSize="@dimen/text_size"
+        app:elevation="4dp" />
 
-
-</LinearLayout>
+</RelativeLayout>

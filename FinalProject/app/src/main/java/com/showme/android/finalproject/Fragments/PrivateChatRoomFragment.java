@@ -3,11 +3,11 @@ package com.showme.android.finalproject.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.showme.android.finalproject.ChatRoomActivity;
@@ -21,7 +21,7 @@ import com.showme.android.finalproject.Translator;
 public class PrivateChatRoomFragment extends Fragment {
 
     EditText mRoomName;
-    Button mSubmit;
+    FloatingActionButton mSubmit;
 
     public PrivateChatRoomFragment() {
         // Required empty public constructor
@@ -34,7 +34,7 @@ public class PrivateChatRoomFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
         mRoomName = (EditText) view.findViewById(R.id.messagesRoomNameEditText);
-        mSubmit = (Button) view.findViewById(R.id.messagesSubmitButton);
+        mSubmit = (FloatingActionButton) view.findViewById(R.id.messagesSubmitButton);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

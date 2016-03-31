@@ -3,13 +3,23 @@
 
     <string-array name="languages_array">
         <item>English</item>
-        <item>Spanish</item>
+        <item>Chinese</item>
         <item>French</item>
+        <item>German</item>
+        <item>Hebrew</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Spanish</item>
+        <item>Swedish</item>
+        <item>Russian</item>
     </string-array>
 
     <string name="title_activity_chat_room">ChatRoomActivity</string>
 
-    <string name="Native_Language">Set Native Language</string>
-    <string name="Translate_Language">Set Translate To Language</string>
+    <string name="Native_Language">I Speak</string>
+    <string name="Translate_Language">I Want To Speak</string>
 
 </resources>

@@ -3,12 +3,12 @@ package com.showme.android.finalproject.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import com.showme.android.finalproject.ChatRoomActivity;
@@ -24,7 +24,7 @@ public class PublicChatRoomFragment extends Fragment {
     Spinner mNativeLanguageSelect;
     Spinner mLanguageSelect;
     ArrayAdapter<CharSequence> mAdapter;
-    Button mSubmit;
+    FloatingActionButton mSubmit;
 
     public PublicChatRoomFragment() {
         // Required empty public constructor
@@ -41,7 +41,7 @@ public class PublicChatRoomFragment extends Fragment {
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mNativeLanguageSelect.setAdapter(mAdapter);
         mLanguageSelect.setAdapter(mAdapter);
-        mSubmit = (Button) view.findViewById(R.id.submitButton);
+        mSubmit = (FloatingActionButton) view.findViewById(R.id.submitButton);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

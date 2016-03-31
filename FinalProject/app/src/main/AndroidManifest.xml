@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.showme.android.finalproject.MainActivity" />
+        <activity
+            android:name="com.showme.android.finalproject.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+
+            />
         <activity
             android:name=".ChatRoomActivity"
             android:label="@string/title_activity_chat_room"

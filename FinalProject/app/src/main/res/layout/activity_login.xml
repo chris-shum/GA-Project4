@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,15 +19,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:visibility="visible" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/profileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-   android:layout_marginTop="150dp"
-        />
+        android:layout_marginTop="150dp" />
 
     <TextView
         android:id="@+id/welcome"
@@ -34,7 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profileImage"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_mine"
         android:text="Welcome"
+        android:textSize="@dimen/text_size"
         android:visibility="invisible" />
 
     <TextView
@@ -44,6 +47,8 @@
         android:layout_below="@id/welcome"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold" />
 
 
@@ -53,7 +58,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewName"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_mine"
         android:text="Logged in as:"
+        android:textSize="@dimen/text_size"
         android:visibility="invisible" />
 
 
@@ -63,15 +70,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loggingInAs"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold" />
 
-    <Button
+    <!--<Button-->
+    <!--android:id="@+id/loginButton"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/textViewEmail"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:text="Continue"-->
+    <!--android:layout_marginBottom="@dimen/margin_mine"-->
+    <!--android:textSize="@dimen/text_size"-->
+    <!--android:visibility="gone" />-->
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewEmail"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:src="@android:drawable/ic_menu_send"
         android:text="Continue"
-        android:visibility="gone" />
+        android:textSize="@dimen/text_size"
+        android:visibility="gone"
+        app:elevation="4dp" />
 
 </RelativeLayout>

@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,30 +13,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Messages" />
-
-    <!--<EditText-->
-    <!--android:id="@+id/messagesUserNameEditText"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:hint="username"/>-->
+        android:id="@+id/textCreateYourOwnChatRoom"
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:text="Create your own chat room:"
+        android:textSize="@dimen/text_size" />
 
     <EditText
+        android:layout_below="@+id/textCreateYourOwnChatRoom"
         android:id="@+id/messagesRoomNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="roomname" />
+        android:layout_marginBottom="@dimen/margin_mine"
+        android:hint="Room Name"
+        android:textSize="@dimen/text_size" />
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/messagesSubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:src="@android:drawable/ic_menu_send"
+        android:text="Continue"
+        android:textSize="@dimen/text_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        app:elevation="4dp" />
 
-    <ListView
-        android:id="@+id/messagesListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-</LinearLayout>
+</RelativeLayout>
