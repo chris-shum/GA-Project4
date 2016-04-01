@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.showme.android.finalproject.ChatRoomActivity;
+import com.showme.android.finalproject.ChatRoomActivityStuff.ChatRoomActivity;
 import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.Translator;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
 
 /**
@@ -33,7 +33,7 @@ public class PublicChatRoomFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat_room_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_public_chat_room, container, false);
         // Inflate the layout for this fragment
         mNativeLanguageSelect = (Spinner) view.findViewById(R.id.nativeLanguageSelectSpinner);
         mLanguageSelect = (Spinner) view.findViewById(R.id.languageSelectSpinner);
@@ -46,7 +46,7 @@ public class PublicChatRoomFragment extends Fragment {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Translator translator = Translator.getInstance();
+                TranslatorSingleton translator = TranslatorSingleton.getInstance();
                 translator.setNativeLanguage(mNativeLanguageSelect.getSelectedItem().toString());
                 translator.setLanguage(mLanguageSelect.getSelectedItem().toString());
 

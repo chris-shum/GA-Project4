@@ -1,24 +1,24 @@
-package com.showme.android.finalproject.RecyclerView;
+package com.showme.android.finalproject.InviteTab;
 
 /**
  * @author greg
  * @since 6/21/13
  */
-public class Chat {
+public class InviteMessages {
 
     private String message;
     private String author;
-    private String time;
+//    private String time;
 
     // Required default constructor for Firebase object mapping
     @SuppressWarnings("unused")
-    private Chat() {
+    private InviteMessages() {
     }
 
-    public Chat(String message, String author) {
+    public InviteMessages(String message, String author) {
         this.message = message;
         this.author = author;
-        this.time = time;
+//        this.time = time;
     }
 
     public String getMessage() {
@@ -29,7 +29,7 @@ public class Chat {
         return author;
     }
 
-    public String getTime() {
-        return time;
-    }
+//    public String getTime() {
+//        return time;
+////    }
 }

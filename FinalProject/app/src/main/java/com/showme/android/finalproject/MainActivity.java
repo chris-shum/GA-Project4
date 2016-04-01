@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.showme.android.finalproject.Fragments.TabAdapter;
 import com.showme.android.finalproject.Login.LoginActivity;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutBar);
+        tabLayout.addTab(tabLayout.newTab().setText("Chat Invites"));
         tabLayout.addTab(tabLayout.newTab().setText("Public Chat"));
         tabLayout.addTab(tabLayout.newTab().setText("Private Chat"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu2, menu);
         return true;
     }
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
-                        Translator translator = Translator.getInstance();
+                        TranslatorSingleton translator = TranslatorSingleton.getInstance();
                         translator.setLanguage(mTestArray[item]);
                     }
                 });
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
-                        Translator translator = Translator.getInstance();
+                        TranslatorSingleton translator = TranslatorSingleton.getInstance();
                         translator.setNativeLanguage(mTestArray[item]);
                     }
                 });

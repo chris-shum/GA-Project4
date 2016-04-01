@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.firebase.client.Firebase;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
+import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -18,17 +22,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.showme.android.finalproject.Google;
+import com.showme.android.finalproject.Singletons.GoogleSingleton;
 import com.showme.android.finalproject.MainActivity;
 import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.Translator;
+import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
+import com.showme.android.finalproject.ChatRoomActivityStuff.ChatHolder;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     Toolbar chatRoomToolbar;
 
     boolean logout;
-
 
     //Signin button
     private SignInButton signInButton;
@@ -53,13 +61,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //Image Loader
     private ImageLoader imageLoader;
 
+    private static final String FIREBASE_URL = "https://blazing-inferno-2663.firebaseio.com/";
+    private Firebase mFirebaseRef;
+    private ValueEventListener mConnectedListener;
+    private FirebaseRecyclerAdapter<Chat, ChatHolder> mRecycleViewAdapter;
+    private Query mChatRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Google google = Google.getInstance();
+        mFirebaseRef.setAndroidContext(this);
 
+        GoogleSingleton google = GoogleSingleton.getInstance();
 
         chatRoomToolbar = (Toolbar) findViewById(R.id.loginToolbar);
         chatRoomToolbar.setTitle("App Name");
@@ -103,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fireBaseUserLogin();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -114,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //This function will option signing intent
     private void signIn() {
         //Creating an intent
-        Google google = Google.getInstance();
+        GoogleSingleton google = GoogleSingleton.getInstance();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(google.getmGoogleApiClient());
 
         //Starting intent for result
@@ -160,10 +177,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mLogggedInAs.setVisibility(View.VISIBLE);
             mButton.setVisibility(View.VISIBLE);
 
-            Translator translator = Translator.getInstance();
+            TranslatorSingleton translator = TranslatorSingleton.getInstance();
             String username = acct.getEmail();
             String[] breakup = username.split("@");
-            translator.setUsername(breakup[0]);
+            String word = breakup[0];
+            word = word.replace(".", "");
+            word = word.replace("#", "");
+            word = word.replace("$", "");
+            word = word.replace("[", "");
+            word = word.replace("]", "");
+            translator.setLoginUsername(word);
+
+
         } else {
             //If login fails
             Toast.makeText(this, "Login Failed", Toast.LENGTH_LONG).show();
@@ -191,5 +216,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void fireBaseUserLogin() {
+        String username = textViewEmail.getText().toString();
+        String[] breakup = username.split("@");
+        mFirebaseRef = new Firebase(FIREBASE_URL).child("8675309userlist");
+        mChatRef = mFirebaseRef.limitToLast(50);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+        String time = simpleDateFormat.format(new Date());
+        // Create our 'model', a Chat object
+        Chat chat = new Chat(breakup[0], time);
+        // Create a new, auto-generated child of that chat location, and save our chat data there
+        mFirebaseRef.push().setValue(chat);
     }
 }

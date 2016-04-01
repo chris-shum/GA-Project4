@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.showme.android.finalproject.ChatRoomActivity;
+import com.showme.android.finalproject.ChatRoomActivityStuff.ChatRoomActivity;
 import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.Translator;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
 
 /**
@@ -32,14 +32,14 @@ public class PrivateChatRoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
+        View view = inflater.inflate(R.layout.fragment_private_chat_room, container, false);
         mRoomName = (EditText) view.findViewById(R.id.messagesRoomNameEditText);
         mSubmit = (FloatingActionButton) view.findViewById(R.id.messagesSubmitButton);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Translator translator = Translator.getInstance();
+                TranslatorSingleton translator = TranslatorSingleton.getInstance();
                 String language = mRoomName.getText().toString();
                 translator.setNativeLanguage("English");
 

@@ -1,29 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UserListActivityStuff.UserListActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/chatRoomToolbar"
+        android:id="@+id/userListToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/listRecyclerView"
+        android:id="@+id/listRecyclerView2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/listFooter"
-        android:layout_below="@+id/chatRoomToolbar"
-        android:transcriptMode="alwaysScroll" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:id="@+id/listFooter"
@@ -37,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="Enter loginUsername"
             android:inputType="textShortMessage"
             android:lines="1"
             android:singleLine="true" />
@@ -45,15 +41,13 @@
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:src="@android:drawable/ic_menu_send"
             android:text="Continue"
-            app:elevation="4dp"
             android:textSize="@dimen/text_size"
-            />
+            app:elevation="4dp" />
 
     </LinearLayout>
 
-
-</RelativeLayout>
+</LinearLayout>

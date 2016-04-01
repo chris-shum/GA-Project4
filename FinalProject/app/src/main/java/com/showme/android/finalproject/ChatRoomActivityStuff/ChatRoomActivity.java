@@ -1,4 +1,4 @@
-package com.showme.android.finalproject;
+package com.showme.android.finalproject.ChatRoomActivityStuff;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,14 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.showme.android.finalproject.Login.LoginActivity;
-import com.showme.android.finalproject.RecyclerView.Chat;
-import com.showme.android.finalproject.RecyclerView.ChatHolder;
+import com.showme.android.finalproject.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
+import com.showme.android.finalproject.UserListActivityStuff.UserListActivity;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
@@ -51,8 +52,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         mFirebaseRef.setAndroidContext(this);
         mInputText = (EditText) findViewById(R.id.messageInput);
 
-        final Translator translator = Translator.getInstance();
-        mUsername = translator.getUsername();
+        final TranslatorSingleton translator = TranslatorSingleton.getInstance();
+        mUsername = translator.getLoginUsername();
         mNativeLanguage = translator.getNativeLanguage();
         mLanguage = translator.getLanguage();
 
@@ -137,9 +138,9 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
-                    Toast.makeText(ChatRoomActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatRoomActivity.this, "Connected to chat room", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ChatRoomActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatRoomActivity.this, "Disconnected from chat room", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -191,7 +192,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
-                        Translator translator = Translator.getInstance();
+                        TranslatorSingleton translator = TranslatorSingleton.getInstance();
                         translator.setLanguage(mTestArray[item]);
                     }
                 });
@@ -203,7 +204,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 builder.setItems(R.array.languages_array, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         String[] mTestArray = getResources().getStringArray(R.array.languages_array);
-                        Translator translator = Translator.getInstance();
+                        TranslatorSingleton translator = TranslatorSingleton.getInstance();
                         translator.setNativeLanguage(mTestArray[item]);
                     }
                 });
@@ -214,6 +215,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChatRoomActivity.this, LoginActivity.class);
                 intent.putExtra("Logout", true);
                 startActivity(intent);
+                return true;
+
+            case R.id.invite:
+                Intent intent2 = new Intent(ChatRoomActivity.this, UserListActivity.class);
+                intent2.putExtra("RoomName", mLanguage);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.showme.android.finalproject.Login.LoginActivity"
+            android:name=".Login.LoginActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,14 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.showme.android.finalproject.MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-
-            />
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name=".ChatRoomActivity"
+            android:name=".ChatRoomActivityStuff.ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
             android:theme="@style/AppTheme" />
+        <activity android:name=".UserListActivityStuff.UserListActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.showme.android.finalproject;
+package com.showme.android.finalproject.Singletons;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -12,20 +12,20 @@ import com.memetix.mst.translate.Translate;
 /**
  * Created by ShowMe on 3/29/16.
  */
-public class Translator {
-    private static Translator ourInstance = null;
+public class TranslatorSingleton {
+    private static TranslatorSingleton ourInstance = null;
 
     public static Language translateToLanguage = Language.ENGLISH;
-    private String mUsername;
+    private String mLoginUsername;
     public String mNativeLanguage;
     String mLanguage;
 
-    public String getUsername() {
-        return mUsername;
+    public String getLoginUsername() {
+        return mLoginUsername;
     }
 
-    public void setUsername(String mUsername) {
-        this.mUsername = mUsername;
+    public void setLoginUsername(String mUsername) {
+        this.mLoginUsername = mUsername;
     }
 
     public String getNativeLanguage() {
@@ -44,14 +44,14 @@ public class Translator {
         this.mLanguage = mLanguage;
     }
 
-    public static Translator getInstance() {
+    public static TranslatorSingleton getInstance() {
         if (ourInstance == null) {
-            ourInstance = new Translator();
+            ourInstance = new TranslatorSingleton();
         }
         return ourInstance;
     }
 
-    public Translator() {
+    public TranslatorSingleton() {
     }
 
     public void translatedText(final TextView inputView, String translatedToLanguage) throws Exception {

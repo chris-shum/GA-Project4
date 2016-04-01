@@ -1,4 +1,4 @@
-package com.showme.android.finalproject.RecyclerView;
+package com.showme.android.finalproject.ChatRoomActivityStuff;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.Translator;
+import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
 /**
  * Created by ShowMe on 3/28/16.
@@ -54,7 +54,7 @@ public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickL
             public void onClick(View v) {
                 TextView clickedText = (TextView) mView.findViewById(R.id.message_text);
                 try {
-                    Translator translator = Translator.getInstance();
+                    TranslatorSingleton translator = TranslatorSingleton.getInstance();
                     translator.translatedText(clickedText, translator.getNativeLanguage());
                 } catch (Exception e) {
                     e.printStackTrace();
