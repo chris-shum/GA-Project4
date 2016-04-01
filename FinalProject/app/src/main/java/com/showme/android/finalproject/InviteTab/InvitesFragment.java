@@ -1,8 +1,13 @@
 package com.showme.android.finalproject.InviteTab;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +21,7 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
+import com.showme.android.finalproject.MainActivity;
 import com.showme.android.finalproject.R;
 import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
@@ -47,7 +53,6 @@ public class InvitesFragment extends Fragment {
         mChatRef = mFirebaseRef.limitToLast(50);
         // Inflate the layout for this fragment
         mMessages = (RecyclerView) view.findViewById(R.id.listRecyclerViewInvites);
-
         return view;
     }
 
@@ -90,15 +95,22 @@ public class InvitesFragment extends Fragment {
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-                if (connected) {
-                    mMessages.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount());
-                        }
-                    });
-                }
+//                notification();
+                mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount());
+
+//                boolean connected = (Boolean) dataSnapshot.getValue();
+//
+//
+//
+//
+//                if (connected) {
+//                    mMessages.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    });
+//                }
             }
 
             @Override
@@ -115,5 +127,29 @@ public class InvitesFragment extends Fragment {
         mRecycleViewAdapter.cleanup();
     }
 
+    public void notification(){
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(getContext())
+                        .setSmallIcon(android.R.drawable.ic_menu_call)
+                        .setContentTitle("My notification")
+                        .setContentText("You have a new chat room invite!");
+        Intent resultIntent = new Intent(getContext(), MainActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        getContext(),
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        // NOTIFICATION_ID allows you to update the notification later on.
+        mNotificationManager.notify(12345, mBuilder.build());
+
+
+
+    }
 
 }

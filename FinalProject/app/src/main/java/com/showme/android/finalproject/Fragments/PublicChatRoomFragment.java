@@ -49,6 +49,7 @@ public class PublicChatRoomFragment extends Fragment {
                 TranslatorSingleton translator = TranslatorSingleton.getInstance();
                 translator.setNativeLanguage(mNativeLanguageSelect.getSelectedItem().toString());
                 translator.setLanguage(mLanguageSelect.getSelectedItem().toString());
+                translator.setmRoomName(mLanguageSelect.getSelectedItem().toString());
 
                 Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
                 getActivity().startActivity(intent);

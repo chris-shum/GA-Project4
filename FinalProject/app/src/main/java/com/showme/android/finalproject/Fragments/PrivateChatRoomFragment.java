@@ -40,14 +40,14 @@ public class PrivateChatRoomFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TranslatorSingleton translator = TranslatorSingleton.getInstance();
-                String language = mRoomName.getText().toString();
+                String roomName = mRoomName.getText().toString();
                 translator.setNativeLanguage("English");
 
                 Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-                if (language.equals("")) {
+                if (roomName.equals("")) {
                     mRoomName.setError("Please enter a room name");
                 } else {
-                    translator.setLanguage(language);
+                    translator.setmRoomName(roomName);
                     getActivity().startActivity(intent);
                 }
             }

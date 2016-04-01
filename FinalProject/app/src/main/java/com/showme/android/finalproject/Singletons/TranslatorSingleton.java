@@ -19,6 +19,15 @@ public class TranslatorSingleton {
     private String mLoginUsername;
     public String mNativeLanguage;
     String mLanguage;
+    String mRoomName;
+
+    public String getmRoomName() {
+        return mRoomName;
+    }
+
+    public void setmRoomName(String mRoomName) {
+        this.mRoomName = mRoomName;
+    }
 
     public String getLoginUsername() {
         return mLoginUsername;

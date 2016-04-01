@@ -164,14 +164,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //Initializing image loader
             imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
                     .getImageLoader();
+            String photo = "";
 
-            imageLoader.get(acct.getPhotoUrl().toString(),
-                    ImageLoader.getImageListener(profilePhoto,
-                            R.mipmap.ic_launcher,
-                            R.mipmap.ic_launcher));
 
+            if (acct.getPhotoUrl() == null) {
+
+            } else {
+                photo = acct.getPhotoUrl().toString();
+                imageLoader.get(acct.getPhotoUrl().toString(),
+                        ImageLoader.getImageListener(profilePhoto,
+                                R.mipmap.ic_launcher,
+                                R.mipmap.ic_launcher));
+            }
             //Loading image
-            profilePhoto.setImageUrl(acct.getPhotoUrl().toString(), imageLoader);
+            profilePhoto.setImageUrl(photo, imageLoader);
             signInButton.setVisibility(View.GONE);
             mWelcome.setVisibility(View.VISIBLE);
             mLogggedInAs.setVisibility(View.VISIBLE);

@@ -56,9 +56,12 @@ public class ChatRoomActivity extends AppCompatActivity {
         mUsername = translator.getLoginUsername();
         mNativeLanguage = translator.getNativeLanguage();
         mLanguage = translator.getLanguage();
-
+        String roomName = translator.getmRoomName();
+        if (roomName.equals("")){
+            roomName = mLanguage;
+        }
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
-        chatRoomToolbar.setTitle(mLanguage + " room");
+        chatRoomToolbar.setTitle(roomName + " room");
         setSupportActionBar(chatRoomToolbar);
 
 
@@ -66,7 +69,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         if (mLanguage == null) {
             mFirebaseRef = new Firebase(FIREBASE_URL).child("default");
         } else {
-            mFirebaseRef = new Firebase(FIREBASE_URL).child(mLanguage);
+            mFirebaseRef = new Firebase(FIREBASE_URL).child(roomName);
         }
         mChatRef = mFirebaseRef.limitToLast(50);
 
