@@ -44,6 +44,7 @@ public class InvitesMessagesHolder extends RecyclerView.ViewHolder implements Vi
                 word = word.replace("$", "");
                 word = word.replace("[", "");
                 word = word.replace("]", "");
+                translator.setmRoomName(word);
                 translator.setLanguage(word);
                 Intent intent = new Intent(itemView.getContext(), ChatRoomActivity.class);
                 itemView.getContext().startActivity(intent);

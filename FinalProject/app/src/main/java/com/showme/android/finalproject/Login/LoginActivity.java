@@ -34,7 +34,7 @@ import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
-    Toolbar chatRoomToolbar;
+    Toolbar loginActivityToolbar;
 
     boolean logout;
 
@@ -77,9 +77,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         GoogleSingleton google = GoogleSingleton.getInstance();
 
-        chatRoomToolbar = (Toolbar) findViewById(R.id.loginToolbar);
-        chatRoomToolbar.setTitle("App Name");
-        setSupportActionBar(chatRoomToolbar);
+        loginActivityToolbar = (Toolbar) findViewById(R.id.loginToolbar);
+        loginActivityToolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
+        loginActivityToolbar.setTitle("App Name");
+        setSupportActionBar(loginActivityToolbar);
 
         //Initializing Views
         textViewName = (TextView) findViewById(R.id.textViewName);
@@ -120,6 +121,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 fireBaseUserLogin();
+                TranslatorSingleton translator = TranslatorSingleton.getInstance();
+                translator.setNativeLanguage("English");
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }

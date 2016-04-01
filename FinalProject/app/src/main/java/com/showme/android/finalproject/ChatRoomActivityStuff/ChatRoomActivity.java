@@ -16,16 +16,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.showme.android.finalproject.Login.LoginActivity;
-import com.showme.android.finalproject.R;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.showme.android.finalproject.Login.LoginActivity;
+import com.showme.android.finalproject.R;
 import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 import com.showme.android.finalproject.UserListActivityStuff.UserListActivity;
 
@@ -33,7 +32,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private static final String FIREBASE_URL = "https://blazing-inferno-2663.firebaseio.com/";
     private Firebase mFirebaseRef;
-    private ValueEventListener mConnectedListener;
+    private ChildEventListener mConnectedListener;
     private String mUsername;
     public String mNativeLanguage;
     String mLanguage;
@@ -61,6 +60,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             roomName = mLanguage;
         }
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
+        chatRoomToolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
         chatRoomToolbar.setTitle(roomName + " room");
         setSupportActionBar(chatRoomToolbar);
 
@@ -126,6 +126,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 chatView.setName(chat.getAuthor());
                 chatView.setText(chat.getMessage());
                 String author = chat.getAuthor();
+
                 if (author != null && author.equals(mUsername)) {
                     chatView.setIsSender(true);
                 } else {
@@ -136,15 +137,33 @@ public class ChatRoomActivity extends AppCompatActivity {
         mMessages.setAdapter(mRecycleViewAdapter);
 
         // Finally, a little indication of connection status
-        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+        TranslatorSingleton translator = TranslatorSingleton.getInstance();
+        mConnectedListener = mFirebaseRef.getRoot().child(translator.getmRoomName()).addChildEventListener(new ChildEventListener() {
+
+
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-                if (connected) {
-                    Toast.makeText(ChatRoomActivity.this, "Connected to chat room", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ChatRoomActivity.this, "Disconnected from chat room", Toast.LENGTH_SHORT).show();
-                }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mMessages.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount()-1);
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override

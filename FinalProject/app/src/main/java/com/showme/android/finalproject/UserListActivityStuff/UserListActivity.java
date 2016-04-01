@@ -12,17 +12,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
 import com.showme.android.finalproject.Login.LoginActivity;
 import com.showme.android.finalproject.R;
-import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
 import com.showme.android.finalproject.Singletons.GoogleSingleton;
 import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
@@ -30,7 +29,7 @@ public class UserListActivity extends AppCompatActivity {
 
     private static final String FIREBASE_URL = "https://blazing-inferno-2663.firebaseio.com/";
     private Firebase mFirebaseRef;
-    private ValueEventListener mConnectedListener;
+    private ChildEventListener mConnectedListener;
 
     private RecyclerView mMessages;
     private FirebaseRecyclerAdapter<Chat, UserListHolder> mRecycleViewAdapter;
@@ -53,6 +52,7 @@ public class UserListActivity extends AppCompatActivity {
         mChatRef = mFirebaseRef.limitToLast(50);
 
         userListToolBar = (Toolbar) findViewById(R.id.userListToolbar);
+        userListToolBar.setTitleTextColor(getColor(R.color.toolbarTextColor));
         userListToolBar.setTitle("Recent Users");
         setSupportActionBar(userListToolBar);
 
@@ -87,7 +87,7 @@ public class UserListActivity extends AppCompatActivity {
         word = word.replace("[", "");
         word = word.replace("]", "");
         mFirebaseRef = new Firebase(FIREBASE_URL).child(word);
-        Chat chat = new Chat(translator.getLanguage(), translator.getLoginUsername());
+        Chat chat = new Chat(translator.getmRoomName(), translator.getLoginUsername());
         // Create a new, auto-generated child of that chat location, and save our chat data there
         mFirebaseRef.push().setValue(chat);
     }
@@ -129,15 +129,31 @@ public class UserListActivity extends AppCompatActivity {
         mMessages.setAdapter(mRecycleViewAdapter);
 
         // Finally, a little indication of connection status
-        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+        mConnectedListener = mFirebaseRef.getRoot().child("8675309userlist").addChildEventListener(new ChildEventListener() {
+
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-                if (connected) {
-                    Toast.makeText(UserListActivity.this, "Connected to chat room", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(UserListActivity.this, "Disconnected from chat room", Toast.LENGTH_SHORT).show();
-                }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mMessages.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount() - 1);
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override

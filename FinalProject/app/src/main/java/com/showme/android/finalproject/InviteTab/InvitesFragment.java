@@ -14,11 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
 import com.showme.android.finalproject.MainActivity;
@@ -32,11 +32,12 @@ import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 public class InvitesFragment extends Fragment {
     private static final String FIREBASE_URL = "https://blazing-inferno-2663.firebaseio.com/";
     private Firebase mFirebaseRef;
-    private ValueEventListener mConnectedListener;
+    private ChildEventListener mConnectedListener;
 
     private RecyclerView mMessages;
     private FirebaseRecyclerAdapter<Chat, InvitesMessagesHolder> mRecycleViewAdapter;
     private Query mChatRef;
+
 
     public InvitesFragment() {
         // Required empty public constructor
@@ -90,27 +91,35 @@ public class InvitesFragment extends Fragment {
             }
         };
         mMessages.setAdapter(mRecycleViewAdapter);
-
+        TranslatorSingleton translator = TranslatorSingleton.getInstance();
         // Finally, a little indication of connection status
-        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-//                notification();
-                mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount());
+        mConnectedListener = mFirebaseRef.getRoot().child(translator.getLoginUsername()).addChildEventListener(new ChildEventListener() {
 
-//                boolean connected = (Boolean) dataSnapshot.getValue();
-//
-//
-//
-//
-//                if (connected) {
-//                    mMessages.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                        }
-//                    });
-//                }
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                mMessages.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount() - 1);
+                    }
+                });
+
+            }
+
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -127,11 +136,11 @@ public class InvitesFragment extends Fragment {
         mRecycleViewAdapter.cleanup();
     }
 
-    public void notification(){
+    public void notification() {
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(getContext())
-                        .setSmallIcon(android.R.drawable.ic_menu_call)
-                        .setContentTitle("My notification")
+                        .setSmallIcon(android.R.drawable.ic_dialog_email)
+                        .setContentTitle("App Name")
                         .setContentText("You have a new chat room invite!");
         Intent resultIntent = new Intent(getContext(), MainActivity.class);
         PendingIntent resultPendingIntent =
@@ -147,7 +156,6 @@ public class InvitesFragment extends Fragment {
                 (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         // NOTIFICATION_ID allows you to update the notification later on.
         mNotificationManager.notify(12345, mBuilder.build());
-
 
 
     }
