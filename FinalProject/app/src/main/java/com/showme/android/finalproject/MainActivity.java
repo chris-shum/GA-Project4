@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnMainPage);
         toolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
+        toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutBar);

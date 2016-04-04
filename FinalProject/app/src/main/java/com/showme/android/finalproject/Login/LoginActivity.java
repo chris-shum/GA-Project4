@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         loginActivityToolbar = (Toolbar) findViewById(R.id.loginToolbar);
         loginActivityToolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
-        loginActivityToolbar.setTitle("App Name");
+        loginActivityToolbar.setTitle(R.string.app_name);
         setSupportActionBar(loginActivityToolbar);
 
         //Initializing Views

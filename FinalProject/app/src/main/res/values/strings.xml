@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">MuSu</string>
 
     <string-array name="languages_array">
         <item>English</item>
