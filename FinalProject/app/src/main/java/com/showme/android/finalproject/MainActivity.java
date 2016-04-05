@@ -3,6 +3,7 @@ package com.showme.android.finalproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -29,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
         loginActivity = new LoginActivity();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarOnMainPage);
-        toolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
+        toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutBar);
-        tabLayout.setTabTextColors(ColorStateList.valueOf(getColor(R.color.toolbarTextColor)));
+        tabLayout.setTabTextColors(ColorStateList.valueOf(Color.WHITE));
         tabLayout.addTab(tabLayout.newTab().setText("Chat Invites"));
         tabLayout.addTab(tabLayout.newTab().setText("Public Chat"));
         tabLayout.addTab(tabLayout.newTab().setText("Private Chat"));

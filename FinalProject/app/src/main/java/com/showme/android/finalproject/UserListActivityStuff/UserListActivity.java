@@ -1,6 +1,7 @@
 package com.showme.android.finalproject.UserListActivityStuff;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -52,9 +53,11 @@ public class UserListActivity extends AppCompatActivity {
         mChatRef = mFirebaseRef.limitToLast(50);
 
         userListToolBar = (Toolbar) findViewById(R.id.userListToolbar);
-        userListToolBar.setTitleTextColor(getColor(R.color.toolbarTextColor));
         userListToolBar.setTitle("Recent Users");
         setSupportActionBar(userListToolBar);
+
+        userListToolBar.setTitleTextColor(Color.WHITE);
+
 
         userNameEnter = (EditText) findViewById(R.id.messageInput);
         sentButton = (FloatingActionButton) findViewById(R.id.sendButton);

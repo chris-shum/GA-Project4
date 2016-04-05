@@ -2,6 +2,7 @@ package com.showme.android.finalproject.ChatRoomActivityStuff;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -56,11 +57,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         mNativeLanguage = translator.getNativeLanguage();
         mLanguage = translator.getLanguage();
         String roomName = translator.getmRoomName();
-        if (roomName.equals("")){
+        if (roomName.equals("")) {
             roomName = mLanguage;
         }
         chatRoomToolbar = (Toolbar) findViewById(R.id.chatRoomToolbar);
-        chatRoomToolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
+        chatRoomToolbar.setTitleTextColor(Color.WHITE);
         chatRoomToolbar.setTitle(roomName + " room");
         setSupportActionBar(chatRoomToolbar);
 
@@ -146,7 +147,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 mMessages.post(new Runnable() {
                     @Override
                     public void run() {
-                        mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount()-1);
+                        mMessages.smoothScrollToPosition(mRecycleViewAdapter.getItemCount() - 1);
                     }
                 });
             }

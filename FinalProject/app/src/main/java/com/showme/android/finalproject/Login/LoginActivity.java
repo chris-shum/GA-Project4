@@ -1,6 +1,7 @@
 package com.showme.android.finalproject.Login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +23,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.showme.android.finalproject.Singletons.GoogleSingleton;
-import com.showme.android.finalproject.MainActivity;
-import com.showme.android.finalproject.R;
 import com.showme.android.finalproject.ChatRoomActivityStuff.Chat;
 import com.showme.android.finalproject.ChatRoomActivityStuff.ChatHolder;
+import com.showme.android.finalproject.MainActivity;
+import com.showme.android.finalproject.R;
+import com.showme.android.finalproject.Singletons.GoogleSingleton;
 import com.showme.android.finalproject.Singletons.TranslatorSingleton;
 
 import java.text.SimpleDateFormat;
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         GoogleSingleton google = GoogleSingleton.getInstance();
 
         loginActivityToolbar = (Toolbar) findViewById(R.id.loginToolbar);
-        loginActivityToolbar.setTitleTextColor(getColor(R.color.toolbarTextColor));
+        loginActivityToolbar.setTitleTextColor(Color.WHITE);
         loginActivityToolbar.setTitle(R.string.app_name);
         setSupportActionBar(loginActivityToolbar);
 
