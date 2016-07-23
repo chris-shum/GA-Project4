@@ -65,8 +65,6 @@ public class TranslatorSingleton {
 
     public void translatedText(final TextView inputView, String translatedToLanguage) throws Exception {
         //Replace client_id and client_secret with your own.
-        Translate.setClientId("Project4Shum");
-        Translate.setClientSecret("AXhYWTlsSQuWjQ21EnuuzmR64ymaAONk/Oe1wnfU0AI=");
         final String clickedString = inputView.getText().toString();
         BackgroundTranslation backgroundTranslation = new BackgroundTranslation() {
             @Override
