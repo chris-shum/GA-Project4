@@ -7,7 +7,7 @@
 ###Overview:
 Meet Up, Speak Up is a chat app offering instant translation to and from 13 languages. It features public chatrooms as well as the ability to create your own private chatrooms. The app uses Firebase's UI to send and receive data from a Firebase database. The translations come from the Microsoft Translate API, using their library as well as Volley's library to handle translation requests asynchronously.
 
-###Summary
+###Summary:
 My app is your standard run of the mill chat app with the exception of the instant translation feature.  When you first open the app, you need to log in with your Google account.  This becomes your username for MuSu.  In the main activity, you can see chats you've been invited to, join a public chatroom, or create your own private chatroom.  In each room you can select a language "I want to speak" in as well as the language "I speak".  You are also able to invite people into the chat room that you are in as well as accept invitations into chat rooms.
 
 ##How to use:
