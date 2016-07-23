@@ -1,6 +1,8 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Final Project
 
-<a href="https://play.google.com/apps/testing/com.showme.android.finalproject">##Meet Up, Speak Up (MuSu)</a>
+##Meet Up, Speak Up (MuSu)
+
+<a href="https://play.google.com/apps/testing/com.showme.android.finalproject">Meet Up, Speak Up (MuSu) on Google Play</a>
 
 ###Overview:
 Meet Up, Speak Up is a chat app offering instant translation to and from 13 languages. It features public chatrooms as well as the ability to create your own private chatrooms. The app uses Firebase's UI to send and receive data from a Firebase database. The translations come from the Microsoft Translate API, using their library as well as Volley's library to handle translation requests asynchronously.
