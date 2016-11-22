@@ -40,4 +40,4 @@ As a final project, while I'm not completely happy with the results as it could 
 <a href="https://trello.com/b/uRETpF6L/project4">Trello Board</a>
 
 ###Screenshots:
-![](https://github.com/chris-shum/chris-shum.github.io/blob/master/img/portfolio/musu.jpg)
+![](musu.jpg)
